@@ -1,0 +1,39 @@
+[package]
+name    = "placer-pack"
+version = "0.0.1"
+authors = ["Tony Arcieri <tony@iqlusion.io>"]
+edition = "2018"
+publish = false # iqlusion-internal crate
+
+[dependencies]
+aes-siv = "0.6"
+bytes = "0.4"
+chrono = "0.4"
+clear_on_drop = "0.2"
+failure = "0.1"
+hkdf = "0.4"
+prost = "0.3"
+prost-derive = "0.3"
+rand = "0.4"
+serde = { version = "1.0", optional = true }
+serde_derive = { version  = "1.0", optional = true }
+sha2 = "0.7"
+signatory = { version = "0.23.2", features = ["ed25519"] }
+slog = { version = "2", optional = true }
+slog-async = { version = "2", optional = true }
+slog-term = { version =  "2", optional = true }
+structopt = { version = "0.2", optional = true }
+tai64 = { version = "0.2", features = ["chrono"] }
+toml = { version  = "0.5", optional = true }
+uuid = { version = "0.8", default-features = false, features = ["v4"] }
+yubihsm = { version = "0.39", optional = true }
+
+[build-dependencies]
+prost-build = "0.3"
+
+[features]
+cli = ["signer", "slog", "slog-async", "slog-term", "structopt", "toml"]
+default = ["cli", "yubihsm-provider"]
+keyrings = ["serde", "serde_derive"]
+signer = ["keyrings"]
+yubihsm-provider = ["yubihsm"]

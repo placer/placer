@@ -1,0 +1,39 @@
+# Example placer configuration file
+
+keyrings = "/etc/placer/keyring.toml"
+
+[sources.http]
+user = "placer"
+group = "placer"
+
+[sources.http.packs]
+passwd = "https://example.com/packs/passwd.pack"
+
+[log]
+path = "/var/log/placer/placer.log"
+user = "root"
+group = "root"
+mode = "600"
+
+[cache]
+path = "/var/cache/placer"
+
+[quarantine]
+path = "/var/preserve/placer"
+user = "nobody"
+group = "nobody"
+mode = "000"
+
+[files]
+"/etc/passwd" = { pack = "base", user = "root", group = "root", mode = "644" }
+"/etc/shadow" = { pack = "base", user = "root", group = "root", mode = "000" }
+"/etc/ssh/sshd_config" = { pack = "base", user = "root", group = "root", mode = "600" }
+"/etc/sudoers" = { pack = "base", user = "root", group = "root", mode = "660" }
+"/etc/yum.conf" = { pack = "base", user = "root", group = "root", mode = "644" }
+
+[files."/etc/group"]
+pack = "passwd"
+user = "root"
+group = "root"
+mode = "0644"
+hooks = { after = ["/usr/sbin/grpconv"] } # regenerate /etc/gshadow

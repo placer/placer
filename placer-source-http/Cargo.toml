@@ -1,0 +1,16 @@
+[package]
+name    = "placer-source-http"
+version = "0.0.1"
+authors = ["Shella Stephens <shella@iqlusion.io>"]
+edition = "2018"
+publish = false # iqlusion-internal crate
+
+[dependencies]
+bytes = "1"
+reqwest = "0.11"
+failure = "0.1"
+failure_derive = "0.1"
+hyper = "0.14"
+rand = "0.6"
+sha2 = "0.7.0"
+tokio = { version = "1", features = ["full"] }

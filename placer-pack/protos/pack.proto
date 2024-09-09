@@ -1,0 +1,48 @@
+// Encrypted/signed packs of files to be placed by placer
+
+syntax = "proto3";
+package placer.pack;
+
+import "timestamp.proto";
+
+// Encrypted + signed packs of files
+message Pack {
+    // Random UUID (i.e. nonce) which uniquely identifies this particular file
+    // This is also used as the nonce for encryption
+    string uuid = 1;
+
+    // Date when this pack was generated
+    placer.timestamp.TAI64N date = 2;
+
+    // Signing public key fingerprint (in KeyURI format)
+    string signing_key_fingerprint = 3;
+
+    // Encryption key fingerprint (in KeyURI format)
+    string encryption_key_fingerprint = 4;
+
+    // Payload signature
+    bytes signature = 5;
+
+    // Payload ciphertext
+    bytes ciphertext = 32;
+}
+
+// Payload of files to be encrypted and placed in a signed pack
+message Payload {
+    repeated File files = 1;
+}
+
+// Files-to-be-placed which are members of packs
+message File {
+    // Name of the file (i.e. file "key" in the placer config, not target path)
+    string filename = 1;
+
+    // Content-Type for file
+    string content_type = 2;
+
+    // Last modification time for file
+    placer.timestamp.TAI64N modified_at = 3;
+
+    // Body of file as bytes
+    bytes body = 4;
+}

@@ -1,2 +1,3 @@
-# placer
-Secure centrally-managed file placement utility
+# Placer
+
+Minimum viable configuration management with an emphasis on security
